@@ -8,7 +8,8 @@ body {
 
 :root{
   --primary-color:#FDB73E;
-  --buttons-color: #0000;
+  --buttons-color: #000;
+  --black-bg: #000;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -7084,6 +7085,6 @@ html.lb-disable-scrolling {
 
 /* custom css */
 #page {
-  background-color: var(--primary-color);
+  background-color: var(--black-bg);
   height:100vh;
 }
