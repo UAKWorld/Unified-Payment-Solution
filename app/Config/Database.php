@@ -49,25 +49,6 @@ class Database extends Config
         'failover' => [],
         'port'     => 3306,
 
-//        'username' => 'raos_database_user',
-//        'password' => 'Vb6@686pl',
-//        'database' => 'raos_staging',
-//		'hostname' => 'raosdemo.cluster-cecsepm2s7pe.ap-south-1.rds.amazonaws.com',
-//		'username' => 'robolabsdemo',
-//		'password' => 'RobolabsDemo',
-//		'database' => 'raosdemo',
-//		'DBDriver' => 'MySQLi',
-//		'DBPrefix' => '',
-//		'pConnect' => false,
-//		'DBDebug'  => (ENVIRONMENT !== 'production'),
-//		'charset'  => 'utf8',
-//		'DBCollat' => 'utf8_general_ci',
-//		'swapPre'  => '',
-//		'encrypt'  => false,
-//		'compress' => false,
-//		'strictOn' => false,
-//		'failover' => [],
-//		'port'     => 3306,
     ];
 
     /**

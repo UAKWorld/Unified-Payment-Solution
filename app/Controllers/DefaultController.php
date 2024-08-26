@@ -11,7 +11,7 @@ class Default_Controller extends BaseController
     
     public function __construct()
     {
-        helper(['url', 'form', 'raos_helper','session']);
+        helper(['url', 'form', 'session']);
         $this->session = \Config\Services::session();
 
         $this->uri_actions_library = new Uri_Actions_Library();
@@ -21,50 +21,7 @@ class Default_Controller extends BaseController
         set_time_limit(0);
         ini_set('memory_limit', '20000M');
     }
-
    
-    public function generateView($page, &$data, $include_navbar = true, $include_accounting_list = YES)
-    {
-        $data['header'] = 'header/header.php';
-
-        if ($include_navbar) {
-            $data['top_navi'] = 'nav/topnav.php';
-            $data['sidebar'] = 'nav/sidenav.php';
-        }
-
-        if (session()->get('is_logged_in')) {
-            $account_period_list = $this->accounting_period_library->get_accounting_period_list(session()->get('school_id'));
-            if ($account_period_list === false) {
-                log_message('error', __METHOD__.' error while getting accounting period list, school id: '.session()->get('school_id'));
-                $this->set_flash_error('Unable to get accounting period list, please try later');
-                return redirect()->to(base_url('dashboard'));
-            }
-
-            $data['account_period_list'] = $account_period_list->getResultArray();
-        }
-        
-        if (!empty($data['branch_list'])) {
-            if (count($data['branch_list']) == 1 && empty($data['selected_branch_id'])) {
-                $branch_id = $data['branch_list'][0]['branch_id'];
-
-                $uri_path = new \CodeIgniter\HTTP\URI(current_url());
-
-                $uri = $uri_path->getPath();
-
-                $redirect_url = base_url($uri.'/'.raos_encode($branch_id));
-
-                header('Location: '.$redirect_url);
-                die;
-            }
-        }
-        $data['include_accounting_list'] = $include_accounting_list;
-        $data['selected_branch_id'] = isset($data['selected_branch_id']) ? $data['selected_branch_id'] : null;
-        $data['content'] = $page.'.php';
-        $data['footer'] = 'footer/footer.php';
-        $data['session'] = $this->session;
-        return view('home', $data);
-    }
-
     public function set_flash_error($message)
     {
         $message = '<div class="alert text-white bg-danger" role="alert">

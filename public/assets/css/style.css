@@ -135,22 +135,6 @@ h1 .badge, h2 .badge, h3 .badge, h4 .badge, h5 .badge {
   margin-bottom: 20px !important;
 }
 
-.theme-light .header .header-logo {
-  background-image: url(../images/preload-logo.png);
-}
-
-.theme-dark .header .header-logo {
-  background-image: url(../images/preload-logo.png);
-}
-
-.theme-light .footer .footer-logo {
-  background-image: url(../images/preload-logo.png);
-}
-
-.theme-dark .footer .footer-logo {
-  background-image: url(../images/preload-logo.png);
-}
-
 /* Generating Color Pack*/
 .color-highlight {
   color: #4A89DC !important;
@@ -6380,7 +6364,6 @@ html.lb-disable-scrolling {
   width: 34%;
   left: 0;
   float: left;
-  background: url(../images/prev.png) left 48% no-repeat;
   filter: alpha(Opacity=0);
   opacity: 0;
   -webkit-transition: opacity .6s;
@@ -6398,7 +6381,6 @@ html.lb-disable-scrolling {
   width: 64%;
   right: 0;
   float: right;
-  background: url(../images/next.png) right 48% no-repeat;
   filter: alpha(Opacity=0);
   opacity: 0;
   -webkit-transition: opacity .6s;
@@ -6452,7 +6434,6 @@ html.lb-disable-scrolling {
   float: right;
   width: 30px;
   height: 30px;
-  background: url(../images/close.png) top right no-repeat;
   text-align: right;
   outline: 0;
   filter: alpha(Opacity=70);
@@ -6800,10 +6781,8 @@ html.lb-disable-scrolling {
   top: 50%;
   margin-left: -40px;
   margin-top: -40px;
-  background: url(owl.video.play.png) no-repeat;
   cursor: pointer;
   z-index: 1;
-  -webkit-backface-visibility: hidden;
   transition: transform .1s ease;
 }
 
