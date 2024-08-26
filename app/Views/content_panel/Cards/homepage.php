@@ -97,14 +97,16 @@
 
                 <!-- min to max price range for transaction is between 10% to 80 % -->
                 <?php if($cards['card_category']!== 'FURNITURE') { ?>
-                <input type="hidden" id="<?php echo $cards['card_category']?>"
+                <input type="hidden"
+                    id="<?php echo $cards['card_category']?>"
                     data-current-bal="<?php echo $cards['card_balance']?>"
                     data-min-price="<?php echo round(($cards['card_balance']/100), 10) ?>"
                     data-max-price="<?php echo round(($cards['card_balance']/100) * 80, 1) ?>">
                 <?php } else {?>
                 <!-- min to max price range for furniture transaction is 120 %  all the time to invoke the use other cards for a transaction-->
 
-                <input type="hidden" id="<?php echo $cards['card_category']?>"
+                <input type="hidden"
+                    id="<?php echo $cards['card_category']?>"
                     data-current-bal="<?php echo $cards['card_balance']?>"
                     data-min-price="<?php echo round(($cards['card_balance']/100) * 120, 1) ?>"
                     data-max-price="<?php echo round(($cards['card_balance']/100) * 120, 1) ?>">
@@ -131,16 +133,16 @@
                         <i class="fa fa-utensils controls-icons"></i>
                         <?php }?>
                     </div>
-                    <div class="flex-item-3">
-                        <div class="ml-auto mr-4 pr-2">
-                            <div class="custom-control ios-switch ios-switch-icon">
-                                <input type="checkbox"
-                                    class="ios-input card-status <?php echo $cards['card_category']?>_status"
-                                    id="toggle-id-<?php echo $i?>"
-                                    <?php echo ($cards['card_status'] == 1) ? 'checked' : ''?> data-id="<?php echo $i?>"
-                                    data-current-status="<?php echo $cards['card_status']; ?>">
-                                <label class="custom-control-label" for="toggle-id-<?php echo $i?>"></label>
-                            </div>
+                    <div class="flex-item-3 right-item">
+                        <div class="custom-control ios-switch ios-switch-icon">
+                            <input type="checkbox"
+                                class="ios-input card-status <?php echo $cards['card_category']?>_status"
+                                id="toggle-id-<?php echo $i?>"
+                                <?php echo ($cards['card_status'] == 1) ? 'checked' : ''?>
+                            data-id="<?php echo $i?>"
+                            data-current-status="<?php echo $cards['card_status']; ?>">
+                            <label class="custom-control-label"
+                                for="toggle-id-<?php echo $i?>"></label>
                         </div>
                     </div>
 
@@ -167,7 +169,7 @@
 </div>
 
 <!-- modals -->
-<div id="menu-language" class="menu menu-box-bottom rounded-s bg-green-dark" data-menu-height="700">
+<div id="menu-language" class="menu menu-box-bottom adjust-width rounded-s bg-green-dark" data-menu-height="700">
 
     <div class="menu-title">
         <p class="my-0 py-0 fs-14 color-black">Hi, the <span id="fundsShortCard"></span> card for a transaction of
@@ -190,16 +192,20 @@
                 <?php $i=1;
                     foreach($card_details as $cards) { ?>
                 <?php if($cards['card_balance'] > 0) { ?>
-                <div id="card_id_<?php echo $cards['card_id']?>">
+                <div
+                    id="card_id_<?php echo $cards['card_id']?>">
                     <div class="form-check" style="display:inline!important;">
                         <!-- <input type="hidden"
                             name="<?php // echo $cards['card_id']?>_balance"
                         value="<?php // echo $cards['card_balance']?>">
                         -->
-                        <input type="checkbox" name="<?php echo $cards['card_id']?>"
-                            value="<?php echo $cards['card_id']?>" id="<?php echo $cards['card_id']?>"
+                        <input type="checkbox"
+                            name="<?php echo $cards['card_id']?>"
+                            value="<?php echo $cards['card_id']?>"
+                            id="<?php echo $cards['card_id']?>"
                             class="card_order">
-                        <label class="form-check-label pt-3" for="<?php echo $cards['card_id']?>">
+                        <label class="form-check-label pt-3"
+                            for="<?php echo $cards['card_id']?>">
                             <span class="price-checkbox">
                                 £
                                 <?php echo number_format($cards['card_balance'], 2)?>
@@ -208,7 +214,8 @@
                     </div>
 
 
-                    <a href="#" id="card-<?php echo $cards['card_id']?>">
+                    <a href="#"
+                        id="card-<?php echo $cards['card_id']?>">
                         <img class="mr-3 mt-2"
                             src="<?php echo base_url('assets/images/'. constant($cards['card_image']))?>">
                     </a>
@@ -244,7 +251,8 @@
     </div>
 </div>
 
-<div id="menu-success-1" class="menu menu-box-bottom menu-box-detached bg-green-dark rounded-m" data-menu-height="335">
+<div id="menu-success-1" class="menu menu-box-bottom adjust-width menu-box-detached bg-green-dark rounded-m"
+    data-menu-height="335">
     <h1 class="text-center mt-4"><i class="fa fa-3x fa-check-circle scale-box color-white shadow-xl rounded-circle"></i>
     </h1>
     <h1 class="text-center mt-3 font-700 color-black">Successful Transaction</h1>
@@ -256,7 +264,8 @@
 </div>
 
 
-<div id="menu-warning-1" class="menu menu-box-bottom menu-box-detached bg-red-dark rounded-m" data-menu-height="335">
+<div id="menu-warning-1" class="menu menu-box-bottom adjust-width menu-box-detached bg-red-dark rounded-m"
+    data-menu-height="335">
     <h1 class="text-center mt-4"><i class="fa fa-3x fa-times-circle scale-box color-white shadow-xl rounded-circle"></i>
     </h1>
     <h1 class="text-center mt-3 text-uppercase color-white font-700">Failed!</h1>

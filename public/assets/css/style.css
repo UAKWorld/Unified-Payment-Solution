@@ -1657,7 +1657,7 @@ h1 .badge, h2 .badge, h3 .badge, h4 .badge, h5 .badge {
 }
 
 .menu-box-bottom.menu-active {
-  transform: translate3d(0%, 20px, 0) !important;
+  transform: translate3d(0%, 20px, 0);
 }
 
 .menu-box-bottom-full.menu-active {
@@ -3618,7 +3618,7 @@ img.mx-auto {
   pointer-events: all;
   margin-top: -3px;
   margin-left: -1px;
-  width: 58px !important;
+  width: 48px !important;
   height: 22px !important;
   border-radius: 22px !important;
 }
