@@ -32,10 +32,10 @@ class Database extends Config
      */
     public $default = [
         'DSN'      => '',
-        'hostname' => 'localhost',
-        'username' => 'root',
-        'password' => 'SR04@rmdcf',
-        'database' => 'cardManagement',
+        'hostname' => 'unified-payment-solution.czc0iycagckl.us-east-1.rds.amazonaws.com',
+        'username' => 'admin',
+        'password' => 'XnsYLq0bBevx9NI8d2zO',
+        'database' => 'cardmanagement',
         'DBDriver' => 'MySQLi',
         'DBPrefix' => '',
         'pConnect' => false,

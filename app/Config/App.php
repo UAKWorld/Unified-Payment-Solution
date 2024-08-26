@@ -23,8 +23,7 @@ class App extends BaseConfig
      *
      * @var string
      */
-    public $baseURL = 'http://ups.test/';
-    // public $baseURL = 'https://d303-2a02-8086-c9e-6780-14e3-216c-6a35-9b09.ngrok-free.app/';
+    public $baseURL = 'http://35.175.242.238/';
 
     /**
      * --------------------------------------------------------------------------
