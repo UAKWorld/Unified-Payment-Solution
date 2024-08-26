@@ -32,10 +32,10 @@ class Database extends Config
      */
     public $default = [
         'DSN'      => '',
-        'hostname' => 'robolabsrds.cecsepm2s7pe.ap-south-1.rds.amazonaws.com',
-        'username' => 'robolabs',
-        'password' => 'Robolabs1234',
-        'database' => 'robolabs',
+        'hostname' => 'localhost',
+        'username' => 'root',
+        'password' => 'SR04@rmdcf',
+        'database' => 'cardManagement',
         'DBDriver' => 'MySQLi',
         'DBPrefix' => '',
         'pConnect' => false,

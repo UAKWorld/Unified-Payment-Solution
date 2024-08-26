@@ -130,15 +130,15 @@ $(document).ready(function(){
             }
 
             //Allows clicking even if menu is loaded externally.
-            $('.menu-hider, .close-menu, .menu-close').on('click', function(){
-                menu.removeClass('menu-active');
-                menuHider.removeClass('menu-active menu-active-clear');
-                headerAndContent.css('transform','translate(0,0)');
-                menuHider.css('transform','translate(0,0)');
-                $('#footer-bar').removeClass('footer-menu-hidden');
-                $('body').removeClass('modal-open');
-                return false;
-            });
+            // $('.menu-hider, .close-menu, .menu-close').on('click', function(){
+            //     menu.removeClass('menu-active');
+            //     menuHider.removeClass('menu-active menu-active-clear');
+            //     headerAndContent.css('transform','translate(0,0)');
+            //     menuHider.css('transform','translate(0,0)');
+            //     $('#footer-bar').removeClass('footer-menu-hidden');
+            //     $('body').removeClass('modal-open');
+            //     return false;
+            // });
 
             //Setting Active Menu
             if($('#menu-main').length){
@@ -476,6 +476,7 @@ $(document).ready(function(){
             $('.cover-slider').owlCarousel({loop:false, margin:0, nav:false, lazyLoad:true, items:1, autoplay: true, autoplayTimeout:6000});		
             $('.double-slider').owlCarousel({loop: true, stagePadding:20, margin: 23, nav: false, items: 2, autoplay:true, autoPlayTimeout:4000, dots: false});		
             $('.task-slider').owlCarousel({loop:true, margin:20, nav:false, stagePadding:50, lazyLoad:true, items:2, autoplay: false, autoplayTimeout:4000});		
+            $('.menu-slider').owlCarousel({loop:false, margin:10, nav:false, stagePadding:0, lazyLoad:true, items:3, autoplay: false});		
             $('.next-slide, .next-slide-arrow, .next-slide-text, .cover-next').on('click',function(){$(this).parent().find('.owl-carousel').trigger('next.owl.carousel');});		
             $('.prev-slide, .prev-slide-arrow, .prev-slide-text, .cover-prev').on('click',function(){$(this).parent().find('.owl-carousel').trigger('prev.owl.carousel');});		
             $('.next-slide-user').on('click',function(){$(this).closest('.owl-carousel').trigger('next.owl.carousel');});		

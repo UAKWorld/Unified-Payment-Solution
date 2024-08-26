@@ -162,24 +162,5 @@ class Default_Controller extends BaseController
         return;
     }
 
-    public function access_denied()
-    {
-        //        var_dump('reached'); exit();
-        $data['permission'] = 'denied';
-        return $this->generateView('errors/html/access_denied', $data, false);
-    }
-    public function generate_qr_code($size, $qr_info)
-    {
-        $link = 'https://quickchart.io/qr?margin=1&size=';
 
-        $QR = imagecreatefrompng($link.$size.'&text='.urlencode($qr_info));
-        ob_start();
-        imagejpeg($QR, null, 100);
-        $image_data = ob_get_contents();
-        ob_end_clean();
-        $qr_img = "data:image/jpeg;base64,".base64_encode($image_data);
-        imagedestroy($QR);
-
-        return $qr_img;
-    }
 }

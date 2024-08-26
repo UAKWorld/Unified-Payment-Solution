@@ -3,7 +3,9 @@ body {
   font-family: "Roboto", sans-serif !important;
   line-height: 24px !important;
   color: #727272 !important;
-  background-color: #fcfcfc;
+  background-color: #727272;
+  max-width: 900px;
+  margin: 0 auto;
 }
 
 :root{
@@ -235,7 +237,7 @@ h1 .badge, h2 .badge, h3 .badge, h4 .badge, h5 .badge {
 }
 
 .bg-green-dark {
-  background-color: #8CC152 !important;
+  background-color: #FDB73E !important;
   color: #FFF !important;
 }
 
@@ -1256,14 +1258,15 @@ h1 .badge, h2 .badge, h3 .badge, h4 .badge, h5 .badge {
   bottom: 0px;
   left: 0px;
   right: 0px;
-  z-index: 98;
-  background-color: #fcfcfc;
+  z-index: 96;
   display: flex;
   min-height: 61px;
   border-top: solid 1px rgba(0, 0, 0, 0.05);
   text-align: center;
   box-shadow: 0 -5px 15px 0 rgba(0, 0, 0, 0.09) !important;
   transition: transform 350ms ease !important;
+  max-width: 900px;
+  margin: 0 auto;
 }
 
 #footer-bar a {
@@ -1351,8 +1354,9 @@ h1 .badge, h2 .badge, h3 .badge, h4 .badge, h5 .badge {
 }
 
 .footer-bar-4 i {
-  font-size: 16px !important;
+  font-size: 24px !important;
   padding-top: 2px;
+  color:#FDB73E;
 }
 
 .footer-bar-5 .active-nav strong {
@@ -2342,7 +2346,7 @@ img.mx-auto {
 }
 
 .theme-light #preloader {
-  background-color: #FFF;
+  background-color: #000;
 }
 
 .theme-dark #preloader {
@@ -3615,18 +3619,18 @@ img.mx-auto {
   margin-top: -3px;
   margin-left: -1px;
   width: 58px !important;
-  height: 32px !important;
-  border-radius: 50px !important;
+  height: 22px !important;
+  border-radius: 22px !important;
 }
 
 .ios-switch label::after {
   margin-top: -2px;
   z-index: 6;
-  width: 30px !important;
-  height: 30px !important;
+  width: 18px !important;
+  height: 18px !important;
   transition: all 250ms ease;
-  border-radius: 50px !important;
-  background-color: #FFF;
+  border-radius: 18px !important;
+  background-color: #162087;
   border: solid 1px rgba(152, 152, 152, 0.4);
   transition: all 250ms ease;
 }
@@ -3636,7 +3640,7 @@ img.mx-auto {
 }
 
 .ios-input:checked ~ .custom-control-label::before {
-  background-color: #8CC152 !important;
+  background-color: #FDB73E !important;
 }
 
 .highlight-switch .ios-input:checked ~ .custom-control-label::before {
@@ -3644,7 +3648,7 @@ img.mx-auto {
 }
 
 .ios-switch-icon label::before {
-  background-color: #DA4453 !important;
+  background-color: #FDB73E !important;
 }
 
 .ios-switch-icon i {
@@ -4382,8 +4386,8 @@ code {
 
 .list-custom-small a img {
   margin-left: 0px;
-  width: 30px;
-  height: 30px;
+  width: 80px;
+  height: 50px;
   line-height: 30px;
   margin-top: 10px;
   text-align: center;

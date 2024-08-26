@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-// use App\Libraries\Card_Managment_Library;
+use App\Libraries\Card_Managment_Library;
 
 class Card_Managment_Controller extends Default_Controller
 {
@@ -12,19 +12,134 @@ class Card_Managment_Controller extends Default_Controller
         $this->session = \Config\Services::session();
         $this->uri = new \CodeIgniter\HTTP\URI();
 
-        // $this->card_managment_library = new Card_Managment_Library();
+        $this->card_managment_library = new Card_Managment_Library();
     }
     
     public function index()
     {
         $data= array();
+
+        $card_details = $this->card_managment_library->get_card_details();
+        if($card_details === false) {
+            log_message('error', __METHOD__.' could not fetch card details');
+            $data['card_details'] = '';
+            return $this->generateView('content_panel/Cards/homepage', $data);
+        }
+
+        $data['card_details'] = $card_details;
+
         return $this->generateView('content_panel/Cards/homepage', $data);
     }
 
-    public function ajax_success_response($message = SYSTEM_STATUS_MESSAGE_SUCCESS, $response_data = array(), $refresh_page = NO, $redirect_url = null)
+    public function manage_card()
     {
-        $data['status_code'] = SYSTEM_STATUS_CODE_SUCCESS;
-        $data['status_message'] = $this->success_toast_message($message);
+        
+        $card_id= $this->request->getPost('cardId');
+        $new_card_status= $this->request->getPost('updateValue');
+
+        $update_status = $this->card_managment_library->update_card_status($card_id, $new_card_status);
+        if($update_status === false) {
+            log_message('error', __METHOD__.' could not update card details, card id: '.$card_id.', new card status: '.$new_card_status);
+            $this->ajax_failure_response();
+        }
+
+        $this->ajax_success_response();
+        return;
+    }
+
+    public function start_under_price_transaction()
+    {
+         
+        $currentBalance= $this->request->getPost('currentBalance');
+        $randomPrice= $this->request->getPost('generateRandomPrice');
+        $balance = bcsub($currentBalance, $randomPrice);
+        $cardId = $this->request->getPost('cardId');
+        
+        $transaction_details[$cardId]['balance']= $balance;
+        $transaction_details[$cardId]['cardId']= $this->request->getPost('cardId');
+
+
+        $transaction_result= $this->completeTransaction($transaction_details);
+
+        if(!$transaction_result) {
+            $this->ajax_failure_response();
+            return;
+        }
+
+        $response_data['randomPrice'] = $randomPrice;
+
+        $this->ajax_success_response('', $response_data);
+        return;
+    }
+
+    public function manage_other_card_transactions()
+    {
+        $price_to_be_paid= $this->request->getPost('failedTranscationPrice');
+
+        $card_details = $this->card_managment_library->get_card_details_by_ids($_POST['cards']);
+        if($card_details === false || empty($card_details)) {
+            log_message('error', __METHOD__.' could not fetch card details with ids: '.print_r($_POST['cards'], true));
+            $this->ajax_failure_response();
+            return;
+        }
+        $transaction_details = [];
+
+        foreach($card_details as $det) {
+
+            if($price_to_be_paid > $det['card_balance']) {
+                $price_to_be_paid = bcsub($price_to_be_paid, $det['card_balance']);
+                $card_new_balance= 0;
+            } else {
+                $card_new_balance = bcsub($det['card_balance'], $price_to_be_paid);
+                $price_to_be_paid = 0;
+            }
+            
+
+            $transaction_details[$det['card_id']]['balance']= $card_new_balance;
+            $transaction_details[$det['card_id']]['cardId']= $det['card_id'];
+
+            if($price_to_be_paid == 0) {
+                break;
+            }
+        }
+      
+        if($price_to_be_paid != 0) {
+            $info['status_code'] = 500;
+            $info['message'] = 'transactionFailed';
+            echo json_encode($info, JSON_PRETTY_PRINT);
+            return;
+        }
+
+        // update the new prices and card details
+        $update_details= $this->completeTransaction($transaction_details);
+        if($update_details == false) {
+            $info['status_code'] = 500;
+            $info['message'] = 'error';
+            echo json_encode($info, JSON_PRETTY_PRINT);
+            return;
+        }
+        
+        $this->ajax_success_response('');
+        return;
+    }
+
+    private function completeTransaction($transaction_details)
+    {
+        foreach($transaction_details as $details) {
+            $result= $this->card_managment_library->completeTransaction($details['cardId'], $details['balance']);
+            if($result === false) {
+                log_message('error', __METHOD__.' could not perform transaction successfully, card id: '.$details['cardId'].', amount: '.$details['balance']);
+                return false;
+            }
+        }
+
+        return true;
+        
+    }
+
+    public function ajax_success_response($message = '', $response_data = array(), $refresh_page = 'No', $redirect_url = null)
+    {
+        $data['status_code'] = 200;
         $data['response_data'] = $response_data;
         $data['refresh_page'] = $refresh_page;
         $data['redirect_url'] = $redirect_url;
@@ -32,10 +147,9 @@ class Card_Managment_Controller extends Default_Controller
         echo json_encode($data, JSON_PRETTY_PRINT);
     }
 
-    public function ajax_failure_response($message = SYSTEM_STATUS_MESSAGE_FAILURE, $response_data = array(), $refresh_page = YES, $redirect_url = null)
+    public function ajax_failure_response($message = '', $response_data = array(), $refresh_page = 'Yes', $redirect_url = null)
     {
-        $data['status_code'] = SYSTEM_STATUS_CODE_FAILURE;
-        $data['status_message'] = $this->failure_toast_message($message);
+        $data['status_code'] = 500;
         $data['response_data'] = $response_data;
         $data['refresh_page'] = $refresh_page;
         $data['redirect_url'] = $redirect_url;
