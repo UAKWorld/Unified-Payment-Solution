@@ -31,6 +31,19 @@ class Card_Managment_Controller extends Default_Controller
         return $this->generateView('content_panel/Cards/homepage', $data);
     }
 
+    public function memeberships()
+    {
+        $data= array();
+        return $this->generateView('content_panel/Memberships/membershippage', $data);
+    }
+
+
+    public function subscriptions()
+    {
+        $data= array();
+        return $this->generateView('content_panel/Subsciptions/subscriptionpage', $data);
+    }
+
     public function manage_card()
     {
         

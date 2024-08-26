@@ -104,9 +104,10 @@ $(document).ready(function(){
             })
         }
 
-       
-        renderSlides();
-    
+       if(document.getElementById('slider'))
+       {
+            renderSlides();
+       }
     }
 
     // initial point for card sliders

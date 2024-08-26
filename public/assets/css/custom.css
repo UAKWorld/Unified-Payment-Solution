@@ -234,6 +234,17 @@ font-size: 14px!important;
   right:10%;
 }
 
+.text-y{
+  color:#FDB73E !important;
+  font-weight: bold;
+  font-size: 16px;
+  margin-left:3px;
+}
+.scaleUp{
+  transform: scale(1.5)!important;
+  accent-color: #FDB73E!important;
+}
+
 
 
 /* width: 500px;
@@ -269,6 +280,10 @@ transform: translateX(-50%); */
   }
   .menu-box-bottom.menu-active {
     transform: translate3d(-50%, 20px, 0);
+  }
+
+  .height-adjust{
+    height:348px!important;
   }
   
 }

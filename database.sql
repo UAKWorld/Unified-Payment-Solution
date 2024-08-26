@@ -9,13 +9,13 @@ CREATE TABLE cards(
 
 -- default cards
 INSERT INTO cards (card_balance, card_category, card_image, card_status)
-VALUES (50, 'FOODDINING', 'CARD_ONE', 1);
+VALUES (500, 'FOODDINING', 'CARD_ONE', 1);
 INSERT INTO cards (card_balance, card_category, card_image, card_status)
-VALUES (10, 'TRANSPORT', 'CARD_TWO', 1);
+VALUES (900, 'TRANSPORT', 'CARD_TWO', 1);
 INSERT INTO cards (card_balance, card_category, card_image, card_status)
-VALUES (30, 'GROCERY', 'CARD_THREE', 1);
+VALUES (300, 'GROCERY', 'CARD_THREE', 1);
 INSERT INTO cards (card_balance, card_category, card_image, card_status)
-VALUES (100, 'FURNITURE', 'CARD_FOUR', 1);
+VALUES (999, 'FURNITURE', 'CARD_FOUR', 1);
 
 
 -- adding additional funds for food and dining

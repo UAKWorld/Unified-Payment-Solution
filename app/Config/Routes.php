@@ -32,6 +32,10 @@ $routes->setAutoRoute(true);
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 $routes->get('/', 'Card_Managment_Controller::index');
+$routes->get('memberships', 'Card_Managment_Controller::memeberships');
+$routes->get('subscriptions', 'Card_Managment_Controller::subscriptions');
+
+
 $routes->post('manage_card', 'Card_Managment_Controller::manage_card');
 $routes->post('start_under_price_transaction', 'Card_Managment_Controller::start_under_price_transaction');
 $routes->post('manage_other_card_transactions', 'Card_Managment_Controller::manage_other_card_transactions');

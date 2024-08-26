@@ -4,15 +4,13 @@ $(window).on('load',function(){
 })
  
 $(document).ready(function(){      
-    'use strict'	
-    
     /*Global Settings*/
     var isAJAX = true; //Enables or disable AJAX page transitions and loading.
-    var isDevMode = false; // Enables development mode. Clean cache & Stops BG & Highlights from changing defaults and adds reload button for PWA refresh
+    var isDevMode = true; // Enables development mode. Clean cache & Stops BG & Highlights from changing defaults and adds reload button for PWA refresh
     
     /*PWA Settings*/
-    var pwaEnabled = true; // activate the PWA and all settings below
-    var pwaNoCache = true; // always keep the cache clear to serve the freshest possible content
+    var pwaEnabled = false; // activate the PWA and all settings below
+    var pwaNoCache = false; // always keep the cache clear to serve the freshest possible content
     var pwaRemind = 1; // how many days after the user rejects / clicks maybe later to re-show the install pwa window. set 0 to always.
     
     /*Menu Extender Global Function*/
@@ -1368,132 +1366,6 @@ $(document).ready(function(){
 			loadJS('scripts/charts.js', call_charts_to_page, document.body);
 		}        
         
-        //Activate the PWA    
-        if(pwaEnabled === true){
-            
-            //Setting Timeout Before Prompt Shows Again if Dismissed
-            var now = new Date(); var start = new Date(now.getFullYear(), 0, 0); var diff = now - start; var oneDay = 1000 * 60 * 60 * 24; var day = Math.floor(diff / oneDay);
-            var dismissDate = localStorage.getItem('Asterial-PWA-Timeout-Value');
-            if((day - dismissDate) > pwaRemind){
-                localStorage.removeItem('Asterial-PWA-Prompt')
-            } 
-                
-            //Dismiss Prompt Button
-            $('.pwa-dismiss').on('click',function(){
-                console.log('User Closed Add to Home / PWA Prompt')
-                localStorage.setItem('Asterial-PWA-Prompt', 'install-rejected');
-                $('body').find('#menu-install-pwa-android, #menu-install-pwa-ios, .menu-hider').removeClass('menu-active'); 
-                localStorage.setItem('Asterial-PWA-Timeout-Value', day);
-            });
-
-            //Detecting Mobile Operating Systems
-            var isMobile = {
-                Android: function() {return navigator.userAgent.match(/Android/i);},
-                iOS: function() {return navigator.userAgent.match(/iPhone|iPad|iPod/i);},
-                any: function() {return (isMobile.Android() || isMobile.iOS() || isMobile.Windows());}
-            };
-            var isInWebAppiOS = (window.navigator.standalone == true);
-            var isInWebAppChrome = (window.matchMedia('(display-mode: standalone)').matches);
-
-            //Trigger Install Prompt for Android
-            if (isMobile.Android()) {
-                function showInstallPrompt(){
-                    if($('#menu-install-pwa-android, .add-to-home').length){
-                        if (localStorage.getItem('Asterial-PWA-Prompt') != "install-rejected") {
-                            setTimeout(function(){
-                                $('.add-to-home').addClass('add-to-home-visible add-to-home-android');
-                                $('#menu-install-pwa-android, .menu-hider').addClass('menu-active')
-                            },4500);
-                            console.log('Triggering PWA Window for Android');
-                        } else {
-                            console.log('PWA Install Rejected. Will Show Again in '+ (dismissDate-day + pwaRemind)+' Days')
-                        }
-                    } else {
-                        console.log('The div #menu-install-pwa-android was not found. Please add this div to show the install window')
-                    }
-                }
-                let deferredPrompt;
-                window.addEventListener('beforeinstallprompt', (e) => {
-                    e.preventDefault();
-                    deferredPrompt = e;
-                    showInstallPrompt();
-                });
-                $('.pwa-install').on('click',function(e){
-                  deferredPrompt.prompt();
-                  deferredPrompt.userChoice
-                    .then((choiceResult) => {
-                      if (choiceResult.outcome === 'accepted') {
-                        //console.log('User accepted the A2HS prompt');
-                      } else {
-                        //console.log('User dismissed the A2HS prompt');
-                      }
-                      deferredPrompt = null;
-                    });
-                });
-                window.addEventListener('appinstalled', (evt) => {
-                    $('#menu-install-pwa-android, .menu-hider').removeClass('menu-active')
-                });
-            }  
-
-            //Trigger Install Guide iOS
-            if (isMobile.iOS()) {
-                if(!isInWebAppiOS){
-                    if($('#menu-install-pwa-ios, .add-to-home').length){
-                        if (localStorage.getItem('Asterial-PWA-Prompt') != "install-rejected") {
-                            console.log('Triggering PWA Window for iOS');
-                            setTimeout(function(){
-                                $('.add-to-home').addClass('add-to-home-visible add-to-home-ios');
-                                $('#menu-install-pwa-ios, .menu-hider').addClass('menu-active');
-                            },4500);
-                        } else {
-                            console.log('PWA Install Rejected. Will Show Again in '+ (dismissDate-day + pwaRemind)+' Days')
-                        };
-                    } else {
-                        console.log('The div #menu-install-pwa-ios was not found. Please add this div to show the install window')
-                    }
-                }
-            }    
-
-            //Adding Offline Alerts
-            var offlineAlerts = $('.offline-message');
-            if(!offlineAlerts.length){
-                $('body').append('<p class="offline-message bg-red-dark color-white center-text uppercase ultrabold">No internet connection detected</p> ');
-                $('body').append('<p class="online-message bg-green-dark color-white center-text uppercase ultrabold">You are back online</p>');
-            }
-            //Offline Function Show
-            function isOffline(){
-                $('.offline-message').addClass('offline-message-active');
-                $('.online-message').removeClass('online-message-active');
-                setTimeout(function(){$('.offline-message').removeClass('offline-message-active');},2000);
-            }
-            //Online Function Show
-            function isOnline(){
-                $('.online-message').addClass('online-message-active');
-                $('.offline-message').removeClass('offline-message-active');
-                setTimeout(function(){$('.online-message').removeClass('online-message-active');},2000);
-            }    
-            $('.simulate-offline').on('click',function(){isOffline();})
-            $('.simulate-online').on('click',function(){isOnline();})
-
-            //Disable links to other pages if offline. Warning! Enabling offline for iOS can cause issues
-            function returnFalse(){ var detectHREF = $(this).attr('href'); if(detectHREF.match(/.html/)){isOffline(); return false; }  }  
-
-            //Check if Online / Offline
-            function updateOnlineStatus(event) {var condition = navigator.onLine ? "online" : "offline"; isOnline(); console.log( 'Connection: Online'); $("a").off( "click", returnFalse );}
-            function updateOfflineStatus(event) {isOffline();$("a").on( "click", returnFalse ); console.log( 'Connection: Offline');}
-            window.addEventListener('online',  updateOnlineStatus);
-            window.addEventListener('offline', updateOfflineStatus);
-
-            // if(pwaNoCache == true){
-            //     caches.delete('workbox-runtime').then(function() {});
-            //     sessionStorage.clear()
-            //     caches.keys().then(cacheNames => {
-            //       cacheNames.forEach(cacheName => {
-            //         caches.delete(cacheName);
-            //       });
-            //     });
-            // }
-        }
 
         //Externally loaded menu system.
         var menuLoad = $('[data-menu-load]');
@@ -1518,70 +1390,6 @@ $(document).ready(function(){
     //Activating all the plugins
 	setTimeout(init_template, 0);
                
-    //Activate AJAX Transitions    
-    if(isAJAX === true){
-        $(function(){
-            'use strict';
-            var options = {
-                prefetch: true,
-                prefetchOn: 'mouseover',
-                cacheLength: 100,
-                scroll: true, 
-                blacklist: '.default-link',
-                forms: 'contactForm',
-                onStart: {
-                    duration:180, // Duration of our animation
-                    render: function ($container) {
-                    $container.addClass('is-exiting');// Add your CSS animation reversing class
-                        $('.menu, .menu-hider').removeClass('menu-active');
-                        $('#preloader').removeClass('preloader-hide');
-                        return false;
-                    }
-                },
-                onReady: {
-                    duration: 30,
-                    render: function ($container, $newContent) {
-                        $container.removeClass('is-exiting');// Remove your CSS animation reversing class
-                        $container.html($newContent);// Inject the new content
-                        setTimeout(init_template, 0)//Timeout required to properly initiate all JS Functions. 
-                        $('#preloader').removeClass('preloader-hide');
-                    }
-                },
-                onAfter: function($container, $newContent) {
-                    //Back Button Scroll Stop
-                    if ('scrollRestoration' in history) {history.scrollRestoration = 'manual';}
-                    setTimeout(function(){
-                        $('.menu').css('display','block');
-                        $('#preloader').addClass('preloader-hide');
-                    },180);
-                }
-            };
-          var smoothState = $('#page').smoothState(options).data('smoothState');
-           smoothState.clear();
-        });
-    }
+   
 
-    //Activate Development mode. Keeps caches clear.
-    if(isDevMode === true){
-        if(!$('.reloader').length){$('body').append('<a href="#" class="reloader" style="opacity:1; position:fixed; background-color:#000; color:#FFF; z-index:9999; bottom:100px; left:50%; margin-left:-70px; border-radius:10px; width:140px; line-height:40px; text-align:center;">Developer Mode</a>');}
-        $('.reloader').on('click',function(){window.location.reload(true);})
-        caches.delete('workbox-runtime').then(function(){});
-        sessionStorage.clear()
-        localStorage.clear();
-        caches.keys().then(cacheNames => {
-          cacheNames.forEach(cacheName => {
-            caches.delete(cacheName);
-          });
-        });
-    }
-    
-    //Registering The Service Worker    
-    if(pwaEnabled === true){
-        //Loading the Service Worker
-        if ('serviceWorker' in navigator) {
-          window.addEventListener('load', function() {
-            navigator.serviceWorker.register('/_service-worker.js', {scope: '/'});
-          });
-        }
-    }    
 }); 

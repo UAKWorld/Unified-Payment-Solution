@@ -21,10 +21,12 @@
                 <a href="#" class="btn btn-s btn-full mb-3 font-600 mustard-border-tab font-size-10">Bank Cards</a>
             </div>
             <div class="item">
-                <a href="#" class="btn btn-s btn-full mb-3 font-600 normal-border-tab font-size-10">Membership</a>
+                <a href="<?php echo base_url('memberships'); ?>"
+                    class="btn btn-s btn-full mb-3 font-600 normal-border-tab font-size-10">Memberships</a>
             </div>
             <div class="item">
-                <a href="#" class="btn btn-s btn-full mb-3 font-600 normal-border-tab font-size-10">Subscription</a>
+                <a href="<?php echo base_url('subscriptions'); ?>"
+                    class="btn btn-s btn-full mb-3 font-600 normal-border-tab font-size-10">Subscriptions</a>
             </div>
         </div>
     </div>
@@ -85,7 +87,7 @@
 
 
     <div class="swipe-container">
-        <div class="slider">
+        <div id="slider" class="slider">
             <?php if(isset($card_details) && !empty($card_details)) {?>
             <?php $i=1;
                 foreach($card_details as $cards) { ?>
@@ -133,7 +135,13 @@
                         <i class="fa fa-utensils controls-icons"></i>
                         <?php }?>
                     </div>
-                    <div class="flex-item-3 right-item">
+                    <?php if($i == 2) {?>
+                    <div class="flex-item-7">
+                        <input type="checkbox" class="scaleUp" id="random" checked>
+                        <label class="text-y" for="random">Default</label>
+                    </div>
+                    <?php }?>
+                    <div class="flex-item-4 right-item">
                         <div class="custom-control ios-switch ios-switch-icon">
                             <input type="checkbox"
                                 class="ios-input card-status <?php echo $cards['card_category']?>_status"
