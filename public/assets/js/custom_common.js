@@ -38,13 +38,13 @@ $(document).ready(function(){
         {
             if(slideNumber <= slideCount)
             {
-                nextSlide();
+                prevSlide();
             }
         }else if(touchStart > touchEnd)
         {
             if(slideNumber >= 1)
             {
-                prevSlide();
+                nextSlide();
             }
         }
     }
