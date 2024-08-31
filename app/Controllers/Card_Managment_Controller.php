@@ -150,6 +150,39 @@ class Card_Managment_Controller extends Default_Controller
         
     }
 
+    public function reset_balances()
+    {
+        $update_info = [
+            [
+                'card_id'  => 1,
+                'card_balance' => 500,
+            ],
+            [
+                'card_id'  => 2,
+                'card_balance' => 900,
+            ],
+            [
+                'card_id'  => 3,
+                'card_balance' => 300,
+            ],
+            [
+                'card_id'  => 4,
+                'card_balance' => 999,
+            ],
+           
+        ];
+        
+        $result = $this->card_managment_library->update_balances($update_info);
+        
+        if($result === false) {
+            log_message('error', __METHOD__.' could not update card balances, data: '.print_r($update_info, true));
+            $this->session->setFlashdata('message', 'failed');
+            return redirect()->to('/');
+        }
+        $this->session->setFlashdata('message', 'success');
+        return redirect()->to('/');
+    }
+
     public function ajax_success_response($message = '', $response_data = array(), $refresh_page = 'No', $redirect_url = null)
     {
         $data['status_code'] = 200;

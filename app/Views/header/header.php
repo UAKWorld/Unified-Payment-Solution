@@ -4,3 +4,6 @@
     rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="<?php echo base_url("assets/fonts/css/fontawesome-all.min.css")?>">
 <link rel="stylesheet" type="text/css" href="<?php echo base_url("assets/css/custom.css")?>">
+
+<script type="text/javascript" src="<?php echo base_url("assets/js/jquery.js") ?>">
+</script>

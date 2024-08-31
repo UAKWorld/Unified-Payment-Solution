@@ -23,7 +23,7 @@ class App extends BaseConfig
      *
      * @var string
      */
-    public $baseURL = 'http://35.175.242.238/';
+    public $baseURL = 'http://ups.test/';
 
     /**
      * --------------------------------------------------------------------------

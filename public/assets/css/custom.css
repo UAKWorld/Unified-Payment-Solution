@@ -2,7 +2,7 @@
     display: flex;
     flex-flow: column;
     justify-content: center;
-    margin: 250px auto 0;
+    margin: 100px auto 0;
     height: 300px;
   }
 
@@ -243,6 +243,12 @@ font-size: 14px!important;
 .scaleUp{
   transform: scale(1.5)!important;
   accent-color: #FDB73E!important;
+}
+
+.reset-button{
+  position: absolute;
+    right: 8%;
+    bottom: 10%;
 }
 
 

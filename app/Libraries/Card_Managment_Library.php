@@ -50,4 +50,14 @@ class Card_Managment_Library
         return $result;
     }
 
+    public function update_balances($update_info)
+    {
+        $result = $this->card_managment_model->update_balances($update_info);
+        if($result === false) {
+            log_message('error', __METHOD__.' could not update card balances, data: '.print_r($update_info, true));
+            return false;
+        }
+        return $result;
+    }
+
 }

@@ -39,6 +39,7 @@ $routes->get('subscriptions', 'Card_Managment_Controller::subscriptions');
 $routes->post('manage_card', 'Card_Managment_Controller::manage_card');
 $routes->post('start_under_price_transaction', 'Card_Managment_Controller::start_under_price_transaction');
 $routes->post('manage_other_card_transactions', 'Card_Managment_Controller::manage_other_card_transactions');
+$routes->get('reset_balances', 'Card_Managment_Controller::reset_balances');
 /*
 /*
 

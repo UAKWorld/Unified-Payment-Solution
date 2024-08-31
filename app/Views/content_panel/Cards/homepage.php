@@ -31,6 +31,12 @@
         </div>
     </div>
 
+    <a href="<?php echo base_url('reset_balances')?>"
+        class="reset-button">
+        <img src="<?php echo base_url('assets/images/reset.png') ?>"
+            alt="">
+    </a>
+
 
 
     <!-- <div class="addCardContainer mt-3">
@@ -44,12 +50,25 @@
         <span>Toast Center Warning</span>
         <i class="fa fa-angle-right"></i>
     </a>
+
     <a href="javascript:void(0)" class="border-0" data-toast="toast-4" id="toast-failure" style="display:none;">
         <i class="fa fa-square color-gray-dark"></i>
         <span>Toast Center Warning</span>
         <i class="fa fa-angle-right"></i>
     </a>
     <a href="javascript:void(0)" class="border-0" data-toast="toast-5" id="insufficient-funds" style="display:none;">
+        <i class="fa fa-square color-gray-dark"></i>
+        <span>Toast Center Warning</span>
+        <i class="fa fa-angle-right"></i>
+    </a>
+
+    <a href="javascript:void(0)" data-toast="toast-6" id="toast-success-balance" style="display:none;">
+        <i class="fa fa-square color-gray-dark"></i>
+        <span>Toast Center Warning</span>
+        <i class="fa fa-angle-right"></i>
+    </a>
+
+    <a href="javascript:void(0)" class="border-0" data-toast="toast-7" id="toast-failed-balance" style="display:none;">
         <i class="fa fa-square color-gray-dark"></i>
         <span>Toast Center Warning</span>
         <i class="fa fa-angle-right"></i>
@@ -63,6 +82,11 @@
             class="fa fa-times mr-3"></i>Failed! Retry</div>
     <div id="toast-5" class="toast toast-tiny toast-bottom bg-red-dark" data-delay="3000" data-autohide="true"><i
             class="fa fa-times mr-3"></i>Insufficient Funds!</div>
+
+    <div id="toast-6" class="toast toast-tiny toast-bottom bg-green-dark" data-delay="3000" data-autohide="true"><i
+            class="fa fa-check mr-3"></i>Balance Added</div>
+    <div id="toast-7" class="toast toast-tiny toast-bottom bg-red-dark" data-delay="3000" data-autohide="true"><i
+            class="fa fa-times mr-3"></i>Failed!</div>
 
     <!-- modal triggers -->
     <a id="trigger_modal" href="#" data-menu="menu-language" style="display:none">
@@ -283,3 +307,19 @@
     <a href="#"
         class="close-menu btn btn-m btn-center-l button-s shadow-l rounded-s text-uppercase font-600 bg-white color-black close-my-tab">Okay</a>
 </div>
+<!-- php flash messages -->
+<script type="text/javascript">
+    <?php if(!empty($session->getFlashdata('message'))) { ?>
+    <?php if($session->getFlashdata('message') == 'success') { ?>
+
+    setTimeout(() => {
+        $('#toast-success-balance').trigger('click');
+
+    }, 1000);
+    <?php } else {?>
+    setTimeout(() => {
+        $('#toast-failed-balance').trigger('click');
+    }, 1000);
+    <?php }
+    } ?>
+</script>

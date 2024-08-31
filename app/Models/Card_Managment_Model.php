@@ -66,5 +66,16 @@ class Card_Managment_Model extends Model
         }
         return $result;
     }
+    
+    public function update_balances($update_info)
+    {
+        
+        $result = $this->table->updateBatch($update_info, ['card_id']);
+        if ($result === false) {
+            log_message('error', __METHOD__.' error while updating transaction details, last query: '.$this->db->getLastQuery());
+            return false;
+        }
+        return $result;
+    }
 
 }
